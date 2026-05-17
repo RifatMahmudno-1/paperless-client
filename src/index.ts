@@ -12,24 +12,17 @@ export { type CallbackDataType } from './callback_data.ts'
 
 export type GetPaymentUrlOptionsType = Omit<
 	InitiatePaymentOptionsType,
-	'muid' | 'access_app_key' | 'merchant_ref_id'
+	'muid' | 'access_app_key'
 >
 
 export default class PaperlessClient {
 	#muid: string
 	#app_access_key: string
-	#merchant_ref_id: string
 	#host: string
 
-	constructor(
-		muid: string,
-		app_access_key: string,
-		merchant_ref_id: string,
-		host: string
-	) {
+	constructor(muid: string, app_access_key: string, host: string) {
 		this.#muid = muid
 		this.#app_access_key = app_access_key
-		this.#merchant_ref_id = merchant_ref_id
 		this.#host = host
 	}
 
@@ -46,8 +39,7 @@ export default class PaperlessClient {
 			{
 				...options,
 				muid: this.#muid,
-				access_app_key: this.#app_access_key,
-				merchant_ref_id: this.#merchant_ref_id
+				access_app_key: this.#app_access_key
 			}
 		)
 		if (!initiatePaymentResponse.success) {
