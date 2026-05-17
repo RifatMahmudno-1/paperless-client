@@ -3,6 +3,7 @@
 	"version": "1.0.0",
 	"description": "A client for interacting with the Paperless payment API.",
 	"author": "Rifat Mahmud",
+	"license": "MIT",
 	"type": "module",
 	"main": "./dist/index.js",
 	"types": "./dist/index.d.ts",
@@ -24,5 +25,13 @@
 	"devDependencies": {
 		"@types/node": "^25.8.0",
 		"typescript": "^6.0.3"
-	}
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/RifatMahmudno-1/paperless-client.git"
+	},
+	"bugs": {
+		"url": "https://github.com/RifatMahmudno-1/paperless-client/issues"
+	},
+	"homepage": "https://github.com/RifatMahmudno-1/paperless-client#readme"
 }
