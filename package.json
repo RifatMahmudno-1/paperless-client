@@ -1,0 +1,28 @@
+{
+	"name": "paperless-client",
+	"version": "1.0.0",
+	"description": "A client for interacting with the Paperless payment API.",
+	"author": "Rifat Mahmud",
+	"type": "module",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js"
+		}
+	},
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"start": "node ./src/index.ts",
+		"dev": "node --watch-path=./src --watch-preserve-output ./src/index.ts",
+		"build": "tsc",
+		"prepublishOnly": "pnpm run build"
+	},
+	"devDependencies": {
+		"@types/node": "^25.8.0",
+		"typescript": "^6.0.3"
+	}
+}
