@@ -45,7 +45,7 @@ export async function checkPayment(
 		url.searchParams.append('muid', muid)
 		url.searchParams.append('token', token)
 
-		const response = await fetch(url)
+		const response = await fetch(url, { method: 'POST' })
 		if (!response.ok) return { success: false, data: await parseBody(response) }
 
 		const data = await parseBody(response, true)
