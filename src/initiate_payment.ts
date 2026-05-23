@@ -46,7 +46,7 @@ export async function initiatePayment(
 		const requestUrl = new URL(url)
 		for (const key in options) {
 			const value = options[key as keyof InitiatePaymentOptionsType]
-			if (!value) continue
+			if (value === undefined) continue
 			requestUrl.searchParams.append(key, value)
 		}
 

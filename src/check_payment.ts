@@ -41,9 +41,11 @@ export async function checkPayment(
 	token: string
 ): Promise<CheckPaymentResponseType> {
 	try {
-		const response = await fetch(
-			`${origin}/api/v1/gateway/check-payment?muid=${muid}&token=${token}`
-		)
+		const url = new URL(`${origin}/api/v1/gateway/check-payment`)
+		url.searchParams.append('muid', muid)
+		url.searchParams.append('token', token)
+
+		const response = await fetch(url)
 		if (!response.ok) return { success: false, data: await parseBody(response) }
 
 		const data = await parseBody(response, true)

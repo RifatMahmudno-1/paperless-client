@@ -20,13 +20,25 @@ export default class PaperlessClient {
 	#app_access_key: string
 	#host: string
 
+	/**
+	 * @param muid It will be provided upon registration
+	 * @param app_access_key It will be provided upon registration
+	 * @param host The origin of the server
+	 */
 	constructor(muid: string, app_access_key: string, host: string) {
 		this.#muid = muid
 		this.#app_access_key = app_access_key
 		this.#host = host
 	}
 
-	async getPaymentUrl(options: GetPaymentUrlOptionsType): Promise<string> {
+	/**
+	 * merchant_order_id and merchant_ref_id should be unique for each payment.
+	 * marchant_order_id is the order id is used by Peperless to identify the order. Max 20 characters.
+	 * merchant_ref_id is used by the merchant to identify the order in the dashboard.
+	 */
+	async newPayment(
+		options: GetPaymentUrlOptionsType
+	): Promise<{ url: string; token: string }> {
 		const checkServerResponse = await checkServer(this.#host)
 		if (!checkServerResponse.success) {
 			throw new Error('Server check failed', {
@@ -48,13 +60,19 @@ export default class PaperlessClient {
 			})
 		}
 
-		return gatewayUrl(
-			initiatePaymentResponse.data.token,
-			checkServerResponse.data.gateway_url
-		)
+		return {
+			url: gatewayUrl(
+				initiatePaymentResponse.data.token,
+				checkServerResponse.data.gateway_url
+			),
+			token: initiatePaymentResponse.data.token
+		}
 	}
 
-	async checkPaymentStatus(token: string) {
+	/**
+	 * @param token The token received from the newPayment method
+	 */
+	async checkPayment(token: string) {
 		const checkPaymentResponse = await checkPayment(
 			this.#host,
 			this.#muid,
