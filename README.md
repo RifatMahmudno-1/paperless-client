@@ -25,14 +25,14 @@ import PaperlessClient, { formatDescription } from 'paperless-client'
 const client = new PaperlessClient(
 	'YOUR_MUID',
 	'YOUR_APP_ACCESS_KEY',
-	'YOUR_MERCHANT_REF_ID',
 	'https://payment-sandbox.paperlessltd.com' // or production URL
 )
 
 // 2. Generate a Payment URL
 async function initiate() {
-	const url = await client.getPaymentUrl({
+	const { url, token } = await client.newPayment({
 		merchant_order_id: '105',
+		merchant_ref_id: 'REF_105',
 		customer_name: 'John Doe',
 		customer_email: 'john@example.com',
 		customer_phone: '01700000000',
@@ -47,11 +47,12 @@ async function initiate() {
 	})
 
 	console.log('Redirect user to ->', url)
+	console.log('Save this token for later use ->', token)
 }
 
 // 3. Check Payment Status
 async function checkStatus(token: string) {
-	const status = await client.checkPaymentStatus(token)
+	const status = await client.checkPayment(token)
 	console.log('Transaction Status:', status.txn_status)
 }
 ```
