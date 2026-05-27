@@ -18,17 +18,17 @@ export type GetPaymentUrlOptionsType = Omit<
 export default class PaperlessClient {
 	#muid: string
 	#app_access_key: string
-	#host: string
+	#origin: string
 
 	/**
 	 * @param muid It will be provided upon registration
 	 * @param app_access_key It will be provided upon registration
-	 * @param host The origin of the server
+	 * @param origin The origin of the server
 	 */
-	constructor(muid: string, app_access_key: string, host: string) {
+	constructor(muid: string, app_access_key: string, origin: string) {
 		this.#muid = muid
 		this.#app_access_key = app_access_key
-		this.#host = host
+		this.#origin = origin
 	}
 
 	/**
@@ -39,7 +39,7 @@ export default class PaperlessClient {
 	async newPayment(
 		options: GetPaymentUrlOptionsType
 	): Promise<{ url: string; token: string }> {
-		const checkServerResponse = await checkServer(this.#host)
+		const checkServerResponse = await checkServer(this.#origin)
 		if (!checkServerResponse.success) {
 			throw new Error('Server check failed', {
 				cause: checkServerResponse.data
@@ -74,7 +74,7 @@ export default class PaperlessClient {
 	 */
 	async checkPayment(token: string) {
 		const checkPaymentResponse = await checkPayment(
-			this.#host,
+			this.#origin,
 			this.#muid,
 			token
 		)
