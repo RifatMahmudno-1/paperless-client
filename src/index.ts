@@ -33,8 +33,8 @@ export default class PaperlessClient {
 
 	/**
 	 * merchant_order_id and merchant_ref_id should be unique for each payment.
-	 * marchant_order_id is the order id is used by Peperless to identify the order. Max 20 characters.
-	 * merchant_ref_id is used by the merchant to identify the order in the dashboard.
+	 * marchant_order_id is used by the merchant to identify the order in the dashboard.
+	 * merchant_ref_id is used by Peperless to communicate with banks. Max 20 characters.
 	 */
 	async newPayment(
 		options: GetPaymentUrlOptionsType
