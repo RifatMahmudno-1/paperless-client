@@ -21,7 +21,7 @@ export type CheckPaymentResponseType =
 				discount_bdt: string
 				merchant_order_id: string
 				request_ip: string
-				txn_status: 1000 | 1001 | 1009 | null
+				txn_status: '1000' | '1001' | '1009' | null
 				extra_json: null
 				card_details: null
 				is_foreign: 0 | 1
