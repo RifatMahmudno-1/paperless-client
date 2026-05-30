@@ -4,6 +4,6 @@ export type CallbackDataType = {
 		currency: string
 		merchant_order_id: string
 		token: string
-		txn_status: 1000 | 1001 | 1009 | null
+		txn_status: '1000' | '1001' | '1009' | null
 	}
 }
